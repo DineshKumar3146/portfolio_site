@@ -1,43 +1,609 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S Dinesh Kumar - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+        }
+        
+        nav {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            transition: background 0.3s;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background: #34495e;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            margin: 0.5rem;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #2c3e50;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .profile-img {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            background: url('https://i.postimg.cc/SJ7kcnW6/image.jpg') center/cover;
+            border-radius: 50%;
+            margin: 0 auto;
+            border: 5px solid #667eea;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-category ul {
+            list-style: none;
+        }
+        
+        .skill-category li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .skill-category li:last-child {
+            border-bottom: none;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-img {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+        }
+        
+        .project-content h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-tag {
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+        
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .award-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .award-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .award-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -2.55rem;
+            top: 15px;
+            width: 2px;
+            height: 100%;
+            background: #ddd;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .cert-badge {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .cert-badge:hover {
+            transform: scale(1.05);
+        }
+        
+        .cert-badge h4 {
+            color: #2c3e50;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .contact-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .contact-item h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .contact-item a:hover {
+            color: #667eea;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .timeline {
+                padding-left: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+    <section class="hero" id="home">
+        <h1>S Dinesh Kumar</h1>
+        <p>Data Analyst & UI/UX Designer</p>
+        <p class="subtitle">📍 Tirupathi, India | Open to Hybrid & On-Site Opportunities</p>
+        <a href="#projects" class="btn">View My Work</a>
+        <a href="#contact" class="btn">Get In Touch</a>
+    </section>
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="profile-img">👨‍💻</div>
+            <div>
+                <p style="margin-bottom: 1rem;">
+                    I'm a detail-oriented Computer Science student specializing in Artificial Intelligence at Vemu Institute of Technology, 
+                    with a strong passion for integrating data analytics with user-centered design.
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    My expertise lies in turning complex datasets into actionable insights while creating intuitive UI/UX experiences. 
+                    I focus on enhancing usability, decision-making, and overall product performance through creative problem-solving 
+                    and modern design principles.
+                </p>
+                <p>
+                    I'm proficient in Python, data visualization, and design tools, with hands-on experience in building CNN-based deep learning 
+                    models and full-stack applications. Committed to continuous learning and applying analytics, ML, and design in real-world projects.
+                </p>
+            </div>
+        </div>
+    </section>
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+    <section id="skills" style="background: white;">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Programming & Tools</h3>
+                <ul>
+                    <li>Python</li>
+                    <li>C</li>
+                    <li>HTML</li>
+                    <li>Streamlit</li>
+                    <li>Flask</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Data & Analysis</h3>
+                <ul>
+                    <li>Data Analytics</li>
+                    <li>Pandas</li>
+                    <li>NumPy</li>
+                    <li>Data Science</li>
+                    <li>Data Visualization</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Design & UI</h3>
+                <ul>
+                    <li>UI/UX Designing</li>
+                    <li>Template Design</li>
+                    <li>Logo Design</li>
+                    <li>Poster & Banner Design</li>
+                    <li>Canva</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Soft Skills</h3>
+                <ul>
+                    <li>Creative Thinking</li>
+                    <li>Problem Solving</li>
+                    <li>Teamwork</li>
+                    <li>Communication</li>
+                    <li>Leadership</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <h3>Languages</h3>
+                <ul>
+                    <li>English</li>
+                    <li>Tamil</li>
+                    <li>Telugu</li>
+                    <li>Hindi</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">🎭</div>
+                <div class="project-content">
+                    <h3>Deep Fake Detection</h3>
+                    <p>Built a CNN-based deep learning model to detect manipulated images and videos. Improved detection accuracy using 
+                    feature extraction, data augmentation, and model fine-tuning. Won 1st prize at college-level Project Expo.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">CNN</span>
+                        <span class="tech-tag">Deep Learning</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">📊</div>
+                <div class="project-content">
+                    <h3>GitHub Profile Analyser</h3>
+                    <p>Created a data visualization dashboard to analyze GitHub profiles via REST API integration. Displayed insights on 
+                    repositories, languages, and activity patterns using Python and visualization tools.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">REST API</span>
+                        <span class="tech-tag">Data Viz</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">⭐</div>
+                <div class="project-content">
+                    <h3>Amazon Review Analyzer</h3>
+                    <p>Developed an analytical tool to process and visualize Amazon product reviews, extracting insights on customer sentiment 
+                    and trends using data science techniques.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Analytics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    <section id="awards" style="background: white;">
+        <h2>Awards & Achievements</h2>
+        <div class="awards-grid">
+            <div class="award-card">
+                <div class="award-icon">🥇</div>
+                <h3>1st Prize - Project Expo</h3>
+                <p>Secured first place at college-level Project Expo for developing the Deep Fake Detection project</p>
+            </div>
+            <div class="award-card">
+                <div class="award-icon">🥈</div>
+                <h3>2nd Prize - Video Contest</h3>
+                <p>Won second prize in a video contest for editing a college environment video showcasing creative skills</p>
+            </div>
+            <div class="award-card">
+                <div class="award-icon">📜</div>
+                <h3>NPTEL Certificates</h3>
+                <p>Earned NPTEL certificates in Software Engineering and Internet of Things (IoT) courses</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>Education & Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Bachelor of Technology in Computer Science & Engineering (AI)</h3>
+                <p style="color: #667eea; font-weight: bold;">Vemu Institute of Technology, Chittoor | 2022 - 2026</p>
+                <p>GPA: 76%</p>
+                <p>Specialization: Artificial Intelligence</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Python Full Stack Developer Intern</h3>
+                <p style="color: #667eea; font-weight: bold;">CognitiveClass.ai</p>
+                <p>Contributed to responsive web interface design and optimized UX using Python and Streamlit. 
+                Collaborated with team to implement backend logic and API integrations.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Full Stack Developer Intern</h3>
+                <p style="color: #667eea; font-weight: bold;">Infosys Springboard</p>
+                <p>Gained hands-on experience in full-stack development, working on end-to-end application development.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>Intermediate (MPC)</h3>
+                <p style="color: #667eea; font-weight: bold;">R.K. Vidyalaya Junior College, Chittoor | 2020 - 2022</p>
+                <p>GPA: 48%</p>
+            </div>
+            <div class="timeline-item">
+                <h3>SSC (10th Standard)</h3>
+                <p style="color: #667eea; font-weight: bold;">Camford English High School, Chittoor | 2009 - 2020</p>
+                <p>GPA: 88%</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" style="background: white;">
+        <h2>Certifications</h2>
+        <div class="certs-grid">
+            <div class="cert-badge">
+                <h4>AWS Cloud Practitioner Essentials</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Amazon Web Services</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Data Analytics</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Microsoft</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Gen-AI Powered Data Analytics</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">TATA (Forage)</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Python Data Science</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Coursera</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Java & Python</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Cisco Networking Academy</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Google AI Essentials</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Coursera</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Introduction to Data Science</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">LearnTube.ai</p>
+            </div>
+            <div class="cert-badge">
+                <h4>Designing with Canva</h4>
+                <p style="font-size: 0.85rem; color: #667eea;">Coursera</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>📧 Email</h3>
+                <p><a href="mailto:dk5222618@gmail.com">dk5222618@gmail.com</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>📱 Phone</h3>
+                <p><a href="tel:+919100427655">+91 91004 27655</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>💼 LinkedIn</h3>
+                <p><a href="#" target="_blank">View Profile</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>💻 GitHub</h3>
+                <p><a href="#" target="_blank">View Repositories</a></p>
+            </div>
+            <div class="contact-item">
+                <h3>📍 Location</h3>
+                <p>16-594 Vepaman Street<br>Chittoor, Andhra Pradesh 517001</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 S Dinesh Kumar. All rights reserved.</p>
+    </footer>
+</body>
+</html>
